@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+        
+body {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    }
+        
+.container {
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+        
+.logo {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #FFD700, #FF4500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.football {
+    font-size: 3rem;
+    margin: 20px 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.feature h3 {
+    color: #FFD700;
+    margin-bottom: 10px;
+}
+
+.email-form {
+    margin: 40px 0;
+}
+
+.email-form input {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px;
+    width: 300px;
+    max-width: 100%;
+    font-size: 1rem;
+    margin: 10px;
+}
+
+.email-form button {
+    background: linear-gradient(45deg, #FF4500, #FF8C00);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.email-form button:hover {
+    transform: scale(1.05);
+}
+
+.social-links {
+    margin-top: 30px;
+}
+
+.social-links a {
+    color: #FFD700;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact {
+    margin-top: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
