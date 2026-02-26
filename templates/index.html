@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comball ⚽ - Better Football Discussion</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">COMBALL</div>
+        <div class="tagline">Better Football Discussion</div>
+        <div class="football">⚽</div>
+        
+        <p>We're building the perfect place for football fans to discuss matches, tactics, and transfers without the toxicity.</p>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>Live Match Chat</h3>
+                <p>Real-time discussion during games with fellow fans</p>
+            </div>
+            <div class="feature">
+                <h3>Tactical Analysis</h3>
+                <p>Deep dive into strategies and formations</p>
+            </div>
+            <div class="feature">
+                <h3>Verified Community</h3>
+                <p>Real fans only, no bots or trolls</p>
+            </div>
+        </div>
+        
+        <div class="email-form">
+            <h2>Launching Soon!</h2>
+            <p>Be the first to know when we go live</p>
+            <input type="email" placeholder="Your email address" id="emailInput">
+            <button onclick="signUp()">Get Early Access</button>
+        </div>
+        
+        <div class="social-links">
+            <p>Follow our journey:</p>
+            <a href="https://twitter.com/comballapp" target="_blank">Twitter</a> •
+            <a href="https://instagram.com/comballapp" target="_blank">Instagram</a> •
+            <a href="https://tiktok.com/@comballapp" target="_blank">TikTok</a>
+        </div>
+        
+        <div class="contact">
+            <p>Contact: hello@comball.app | © 2026 Comball</p>
+        </div>
+    </div>
+
+    <!-- LEAGUES SECTION -->
+    <section class="leagues">
+        <h2>Top 5 Leagues</h2>
+        <p>Click any league to see today's matches</p>
+
+        <div class="league-grid">
+        <!-- Premier League -->
+        <div class="league-card" data-league="39">
+        <img src="https://media.api-sports.io/football/leagues/39.png" alt="Premier League">
+        <h3>Premier League</h3>
+        <p>England</p>
+        </div>
+
+        <!-- La Liga -->
+        <div class="league-card" data-league="140">
+        <img src="https://media.api-sports.io/football/leagues/140.png" alt="La Liga">
+        <h3>La Liga</h3>
+        <p>Spain</p>
+        </div>
+
+        <!-- Bundesliga -->
+        <div class="league-card" data-league="78">
+        <img src="https://media.api-sports.io/football/leagues/78.png" alt="Bundesliga">
+        <h3>Bundesliga</h3>
+        <p>Germany</p>
+        </div>
+
+        <!-- Serie A -->
+        <div class="league-card" data-league="135">
+        <img src="https://media.api-sports.io/football/leagues/135.png" alt="Serie A">
+        <h3>Serie A</h3>
+        <p>Italy</p>
+        </div>
+
+        <!-- Ligue 1 -->
+        <div class="league-card" data-league="61">
+        <img src="https://media.api-sports.io/football/leagues/61.png" alt="Ligue 1">
+        <h3>Ligue 1</h3>
+        <p>France</p>
+        </div>
+        </div>
+        </section>
+
+        <!-- MATCHES SECTION (initially hidden) -->
+        <section class="matches" id="matches-section" style="display: none;">
+        <h2>Today's Matches</h2>
+        <div id="matches-container"></div>
+    </section>
+
+    <script>
+    // Mock data for matches (replace with real API later)
+    const matchesByLeague = {
+        '39': [ // Premier League
+            { home: 'Arsenal', away: 'Chelsea', score: '2-1', time: 'FT' },
+            { home: 'Liverpool', away: 'Man City', score: '1-1', time: '65\'' },
+            { home: 'Man United', away: 'Tottenham', score: '0-0', time: '32\'' },
+            { home: 'Newcastle', away: 'Aston Villa', score: '3-0', time: 'FT' }
+        ],
+        '140': [ // La Liga
+            { home: 'Real Madrid', away: 'Barcelona', score: '3-0', time: 'FT' },
+            { home: 'Atletico Madrid', away: 'Sevilla', score: '1-0', time: '78\'' },
+            { home: 'Real Sociedad', away: 'Betis', score: '2-2', time: '52\'' }
+        ],
+        '78': [ // Bundesliga
+            { home: 'Bayern Munich', away: 'Dortmund', score: '4-2', time: 'FT' },
+            { home: 'Leverkusen', away: 'Leipzig', score: '1-0', time: 'FT' }
+        ],
+        '135': [ // Serie A
+            { home: 'Juventus', away: 'Milan', score: '1-1', time: '52\'' },
+            { home: 'Inter', away: 'Napoli', score: '2-0', time: 'FT' },
+            { home: 'Roma', away: 'Lazio', score: '0-0', time: '23\'' }
+        ],
+        '61': [ // Ligue 1
+            { home: 'PSG', away: 'Marseille', score: '3-1', time: 'FT' },
+            { home: 'Lyon', away: 'Monaco', score: '0-0', time: '24\'' },
+            { home: 'Lille', away: 'Rennes', score: '2-0', time: 'FT' }
+        ]
+    };
+
+    // Add click handlers to league cards
+    document.querySelectorAll('.league-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const leagueId = this.dataset.league;
+            showMatches(leagueId);
+            
+            // Highlight selected league
+            document.querySelectorAll('.league-card').forEach(c => {
+                c.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+            this.style.background = 'rgba(255, 215, 0, 0.2)';
+        });
+    });
+
+    function showMatches(leagueId) {
+        const matches = matchesByLeague[leagueId] || [];
+        const container = document.getElementById('matches-container');
+        const matchesSection = document.getElementById('matches-section');
+        
+        if (matches.length === 0) {
+            container.innerHTML = '<p style="text-align: center; opacity: 0.7;">No matches today</p>';
+        } else {
+            // Clear previous matches
+            container.innerHTML = '';
+            
+            // Add matches to container
+            matches.forEach(match => {
+                const matchCard = document.createElement('div');
+                matchCard.className = 'match-card';
+                matchCard.innerHTML = `
+                    <span class="match-teams">${match.home} vs ${match.away}</span>
+                    <span class="match-score">${match.score}</span>
+                    <span class="match-time">${match.time}</span>
+                `;
+                container.appendChild(matchCard);
+            });
+        }
+        
+        // Show matches section
+        matchesSection.style.display = 'block';
+        
+        // Scroll to matches
+        matchesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    </script>
+
+    <script>
+        function signUp() {
+            const email = document.getElementById('emailInput').value;
+            if (email) {
+                alert(`Thanks ${email}! We'll notify you when Comball launches. ⚽`);
+                document.getElementById('emailInput').value = '';
+                // In real version, this would send to your backend
+            } else {
+                alert('Please enter your email address');
+            }
+        }
+        
+        // Auto-focus email input
+        document.getElementById('emailInput').focus();
+    </script>
+</body>
+</html>
