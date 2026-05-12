@@ -178,15 +178,25 @@
 
     <script>
         function signUp() {
-            const email = document.getElementById('emailInput').value;
-            if (email) {
-                alert(`Thanks ${email}! We'll notify you when Comball launches. ⚽`);
-                document.getElementById('emailInput').value = '';
-                // In real version, this would send to your backend
-            } else {
-                alert('Please enter your email address');
-            }
+    const email = document.getElementById('emailInput').value;
+    if (!email) {
+        alert('Please enter your email address');
+        return;
+    }
+
+    fetch('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            document.getElementById('emailInput').value = '';
         }
+    });
+}
         
         // Auto-focus email input
         document.getElementById('emailInput').focus();
